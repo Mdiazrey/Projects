@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Tutoring Help</title>
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #6b73ff, #000dff);
+      color: #f1f1f1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+  
+    header {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    header h1 {
+      text-align: center;
+      font-size: 1.8rem;
+      padding: 1rem;
+      color: #fff;
+    }
+
+  
+    nav ul {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      list-style: none;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    nav li {
+      margin: 0.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #f1f1f1;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+
+    main {
+      max-width: 700px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 3rem 1rem;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    main h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      padding-bottom: 0.5rem;
+    }
+
+    main p {
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      color: #e5e7ff;
+    }
+
+    main p:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    .admin-login-btn {
+      margin-top: 2rem;
+      padding: 0.8rem 1.5rem;
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      display: inline-block;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .admin-login-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    
+    footer {
+      width: 100%;
+      text-align: center;
+      padding: 1rem;
+      margin-top: auto;
+      background: rgba(0, 0, 0, 0.3);
+      color: #e5e7ff;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .layout {
+      width: 100%;
+      max-width: 1200px;
+      display: grid;
+      grid-template-columns: 1fr 700px 1fr;
+      gap: 20px;
+      margin-top: 2rem;
+      align-items: start;
+    }
+
+    .side-image {
+      width: 100%;
+      max-width: 600px;
+      display: block;
+      margin: 0 auto;
+      border-radius: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .side-image {
+        display: none;
+      } 
+    } 
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+
+      main {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Student Tutoring Help</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="student-form.html">Student Form</a></li>
+        <li><a href="tutor-form.html">Tutor Form</a></li>
+        <li><a href="handle_tutors.php">Tutors</a></li>
+        <li><a href="handle_students.php">Students</a></li>
+        <li><a href="handle_matches.php">Matches</a></li>
+        <li><a href="payment-form.php">Payment Status Report</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </nav>
+  </header>
+<div class="layout">
+  <div>
+    <img src="https://www.malvernbh.com/wp-content/uploads/2023/02/shutterstock_1079701271-1-min-1010x673.jpg" class="side-image" alt="Top Left">
+    <br><br>
+    <img src="https://www.insidehighered.com/sites/default/files/styles/max_650x650/public/2024-02/GettyImages-1072191138.jpg?itok=qwOWmvTn" class="side-image" alt="Bottom Left">
+  </div>
+
+  <main>
+    <h2>Welcome</h2>
+    <p>This site connects students with tutors to support academic success at Indiana University.</p>
+    <p>Select an option above to get started.</p>
+    
+    <a href="overseer-login.html" class="admin-login-btn">Overseer Login</a>
+  </main>
+  <div>
+    <img src="https://www.workitdaily.com/media-library/college-student-carries-books-to-her-classes.jpg?id=26951082&width=1200&height=800&quality=50&coordinates=0%2C0%2C0%2C0" class="side-image" alt="Top Right">
+    <br><br>
+    <img src="https://ideas.time.com/wp-content/uploads/sites/5/2013/03/college.jpg?w=720&h=480&crop=1" class="side-image" alt="Bottom Right">
+  </div>
+</div>
+
+  <footer>
+    <p>Group 9: Mauricio Diaz Reyes, Samuel Berebitsky, Madelynn Hedges</p>
+  </footer>
+</body>
+</html>

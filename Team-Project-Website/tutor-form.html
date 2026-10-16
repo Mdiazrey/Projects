@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tutor Form</title>
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #6b73ff, #000dff);
+      color: #f1f1f1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+  
+    header {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    header h1 {
+      text-align: center;
+      font-size: 1.8rem;
+      padding: 1rem;
+      color: #fff;
+    }
+
+    
+    nav ul {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      list-style: none;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    nav li {
+      margin: 0.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #f1f1f1;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    
+    main {
+      max-width: 700px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 3rem 1rem;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    main h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      padding-bottom: 0.5rem;
+    }
+
+    
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      color: #e5e7ff;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      font-size: 1rem;
+    }
+
+    input, textarea, select {
+      margin-top: 0.4rem;
+      padding: 0.6rem;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+      font-size: 1rem;
+      color: #333;
+      background: rgba(255, 255, 255, 0.9);
+      transition: all 0.3s ease;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      box-shadow: 0 0 8px rgba(107, 115, 255, 0.7);
+      background: #fff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 0.8rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #4c51ff;
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: #3943ff;
+      transform: scale(1.03);
+    }
+
+    
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+
+      main {
+        padding: 1.5rem;
+      }
+
+      label {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Student Tutoring Help</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="student-form.html">Student Form</a></li>
+        <li><a href="tutor-form.html">Tutor Form</a></li>
+        <li><a href="handle_tutors.php">Tutors</a></li>
+        <li><a href="handle_students.php">Students</a></li>
+        <li><a href="handle_matches.php">Matches</a></li>
+        <li><a href="payment-form.php">Payment Status Report</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Tutor Signup Form</h2>
+    <form action="handle_tutors.php" method="POST">
+      <label for="first_name">First Name*:</label>
+      <input type="text" name="first_name" id="first_name" required>
+
+      <label for="last_name">Last Name*:</label>
+      <input type="text" name="last_name" id="last_name" required>
+
+      <label for="email">Email*:</label>
+      <input type="email" name="email" id="email" required>
+
+      <label for="phone">Phone*:</label>
+      <input type="text" name="phone" id="phone" required>
+
+      <label for="experience">Experience*:</label>
+      <textarea name="experience" id="experience" rows="4" required></textarea>
+
+      <label for="availability">Availability*:</label>
+      <textarea name="availability" id="availability" rows="3" required></textarea>
+
+      <label for="format">Format*:</label>
+      <select name="format" id="format" required>
+          <option value="">Select Format</option>
+          <option value="In Person">In Person</option>
+          <option value="Online">Online</option>
+          <option value="Either">Either</option>
+      </select>
+
+      <label for="rate_free">Rate (Free or $/hr)*:</label>
+      <input type="text" name="rate_free" id="rate_free" placeholder = "Ex: 0.00, 5.00, 10.00" required>
+
+      <button type="submit">Submit</button>
+    </form>
+  </main>
+</body>
+</html>

@@ -1,0 +1,34 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      DB_HOST: database
+      DB_PORT: 3306
+      DB_NAME: student_tutoring
+      DB_USER: student_tutoring
+      DB_PASSWORD: local-development-only
+      DB_AUTO_INIT: "true"
+      ADMIN_PASSWORD: local-admin-only
+    depends_on:
+      database:
+        condition: service_healthy
+
+  database:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: student_tutoring
+      MYSQL_USER: student_tutoring
+      MYSQL_PASSWORD: local-development-only
+      MYSQL_ROOT_PASSWORD: local-root-only
+    volumes:
+      - tutoring-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-plocal-root-only"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  tutoring-data:
