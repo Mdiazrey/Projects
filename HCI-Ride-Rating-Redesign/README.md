@@ -1,5 +1,7 @@
 # Rate Your Ride: Rethinking Ride-Share Feedback
 
+> **Disclaimer:** These projects were worked on and completed in Indiana University's academic ecosystem. AI-assisted tools were used to help prepare sanitized portfolio versions that can be displayed without compromising IU data, credentials, or services. This repository presents previous academic work to demonstrate experience with different technologies, design methods, and resources. It is not connected to or endorsed by Indiana University. All work is presented as academic portfolio material, and group contributors remain credited.
+
 An HCI design project exploring how ride-share platforms could collect clearer, more contextual, and more useful feedback from riders.
 
 > **Academic group project:** This concept was created for a university course and is not affiliated with or endorsed by Uber or Lyft.

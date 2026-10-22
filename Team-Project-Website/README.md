@@ -1,72 +1,149 @@
 # Student Tutoring Help Site
 
+> **Disclaimer:** These projects were worked on and completed in Indiana University's academic ecosystem. AI-assisted tools were used to help prepare sanitized portfolio versions that can be displayed without compromising IU data, credentials, or services. This repository presents previous academic work to demonstrate experience with different technologies, design methods, and resources. It is not connected to or endorsed by Indiana University. All work is presented as academic portfolio material, and group contributors remain credited.
+
 A course project created by Mauricio Diaz Reyes, Samuel Berebitsky, and Madelynn Hedges for Indiana University's I308 Information Representation course (Fall 2025).
 
-The site connects students requesting help with tutors. It stores student requests, tutor availability and rates, tutor/student matches, and payment status reports.
+The application connects students requesting help with tutors. It stores student requests, tutor availability and rates, tutor/student matches, and payment-status reports.
+
+## Local demonstration only
+
+The original application used an Indiana University-hosted MySQL database that is no longer available. This portfolio version does **not** connect to IU systems. It runs locally with its own MySQL container and automatically loads the included demonstration schema and sample records.
+
+The complete application can be explored on a local computer, but no public deployment is currently maintained. Do not enter real personal, academic, or payment information.
 
 ## Technology and project map
 
 - PHP 8 with the `mysqli` extension provides the server-rendered pages and form handlers.
 - MySQL 8 stores the seven project tables: `student`, `tutor`, `tutor_req`, `course`, `request`, `overseer`, and `tutor_match`.
-- `index.html`, `student-form.html`, `tutor-form.html`, `overseer-login.html`, and `faq.html` are the static entry pages.
+- `index.html`, `student-form.html`, `tutor-form.html`, `overseer-login.html`, and `faq.html` are the primary entry pages.
 - `handle_students.php`, `handle_tutors.php`, `handle_matches.php`, `payment-form.php`, `payment-report.php`, and `overseer-dashboard.php` read and update MySQL.
-- `db.php` owns all database configuration and initializes an empty database.
-- `project8.sql` is the schema and portfolio demo data. `project9.sql` preserves the original course query exercise.
-- `Dockerfile` is the production web image. `compose.yaml` runs the complete site locally.
+- `db.php` manages database configuration and initializes an empty database.
+- `project8.sql` contains the schema and portfolio demonstration data. `project9.sql` preserves the original course query exercise.
+- `Dockerfile` defines the PHP/Apache web container. `compose.yaml` starts both the website and its local MySQL database.
 
-The sample people, email addresses, and phone numbers in `project8.sql` are demonstration data, not real user accounts.
+The names, email addresses, phone numbers, and records in `project8.sql` are fictional demonstration data rather than real user accounts.
 
-## Run locally with Docker
+## Run the complete website locally
 
-Docker Desktop is the only prerequisite.
+### Prerequisites
+
+- [Git](https://git-scm.com/downloads)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/), running before the commands below are entered
+
+### 1. Clone the portfolio repository
+
+```bash
+git clone https://github.com/Mdiazrey/Projects.git
+cd Projects/Team-Project-Website
+```
+
+If the repository is already downloaded, open a terminal directly inside the `Team-Project-Website` folder.
+
+### 2. Build and start the application
 
 ```bash
 docker compose up --build
 ```
 
-Open <http://localhost:8080>. The local-only overseer password is `local-admin-only`. MySQL data persists in the `tutoring-data` Docker volume.
+The first launch can take a few minutes while Docker downloads and builds the PHP and MySQL images. Leave this terminal open while using the website.
 
-To stop the app:
+### 3. Open the website
+
+Visit [http://localhost:8080](http://localhost:8080) in a browser.
+
+On the first database-backed request, the application creates the tables and loads the demonstration rows from `project8.sql`. Submitted student requests, tutors, and matches remain in the local Docker volume between restarts.
+
+### 4. Explore the overseer dashboard
+
+Open the **Overseer Login** page from the website. The local demonstration password is:
+
+```text
+local-admin-only
+```
+
+This password is intentionally limited to the local demonstration configuration and must never be reused for another account or public deployment.
+
+### 5. Stop the application
+
+Press `Ctrl+C` in the terminal running Docker, then run:
 
 ```bash
 docker compose down
 ```
 
-## Deploy publicly on Railway
+This stops the containers without deleting the locally stored demonstration database.
 
-Railway is a convenient fit because it can build the included Dockerfile and provision a MySQL service in the same private network.
+## Reset the demonstration database
 
-1. Publish this folder to a GitHub repository. Do **not** publish an `.env` file.
-2. In a new Railway project, choose **New → Database → MySQL**.
-3. Add another service from the GitHub repository. Railway detects `Dockerfile` automatically.
-4. In the web service's **Variables** tab, add references to the MySQL service for these five variables: `MYSQLHOST`, `MYSQLPORT`, `MYSQLUSER`, `MYSQLPASSWORD`, and `MYSQLDATABASE`. Use Railway's variable-reference picker so credentials stay synchronized.
-5. Add `ADMIN_PASSWORD` to the web service with a long, unique password. Optionally add `DB_AUTO_INIT=true`; initialization is already enabled by default.
-6. Deploy the web service. On its first database connection, `db.php` creates the schema and loads the demo rows from `project8.sql`.
-7. In the web service's **Settings → Networking**, generate a public domain. The container listens on Railway's supplied `PORT` automatically.
+To erase all locally submitted data and return to the original sample dataset, stop the application and remove its Docker volume:
 
-Keep the MySQL service private; only the PHP web service needs a public domain. Subsequent GitHub pushes trigger new builds without replacing existing database data.
+```bash
+docker compose down --volumes
+docker compose up --build
+```
 
-## Environment variables
+**Warning:** `--volumes` permanently deletes the database created by this local Docker project. It does not affect any IU system or remote database.
+
+## Troubleshooting
+
+### Port 8080 is already in use
+
+Stop the other application using port 8080, or change the first number in this line of `compose.yaml`:
+
+```yaml
+ports:
+  - "8080:80"
+```
+
+For example, use `8081:80`, restart Docker Compose, and open `http://localhost:8081`.
+
+### The website cannot reach the database
+
+Check the container status and logs:
+
+```bash
+docker compose ps
+docker compose logs database
+docker compose logs web
+```
+
+Wait until the database reports that it is healthy. If this is the first launch, Docker may still be downloading or initializing MySQL.
+
+### Start again after restarting the computer
+
+From the `Team-Project-Website` folder, run:
+
+```bash
+docker compose up
+```
+
+Use `--build` again only when the source code or Docker configuration has changed.
+
+## Configuration reference
+
+The included `compose.yaml` supplies the local demonstration configuration automatically. The application also supports the following environment variables for advanced setups:
 
 | Variable | Purpose |
 | --- | --- |
 | `MYSQLHOST` / `DB_HOST` | MySQL hostname |
-| `MYSQLPORT` / `DB_PORT` | MySQL port (defaults to `3306`) |
+| `MYSQLPORT` / `DB_PORT` | MySQL port; defaults to `3306` |
 | `MYSQLUSER` / `DB_USER` | MySQL user |
 | `MYSQLPASSWORD` / `DB_PASSWORD` | MySQL password |
 | `MYSQLDATABASE` / `DB_NAME` | Database name |
-| `DB_AUTO_INIT` | Set to `false` to disable first-run schema/demo-data setup |
+| `DB_AUTO_INIT` | Set to `false` to disable first-run schema and demo-data setup |
 | `ADMIN_PASSWORD` | Password for the overseer dashboard |
 
-See `.env.example` for generic non-Railway names. Secrets belong in the hosting provider's variables, never in Git.
+See `.env.example` for the generic variable names. Never commit real credentials or an `.env` file.
 
-## Before making the repository public
+## Academic and security notes
 
-The university database password was committed in the original repository history. Deleting the file in the latest commit does not erase older commits. For a public portfolio copy, either create a new repository with a fresh history from the current files, or use a history-cleaning tool before pushing. The retired university credential should also be treated as compromised and never reused.
-
-Because this was a group project, keep the contributor attribution and confirm that all teammates are comfortable with the public portfolio copy.
+- This is a portfolio copy of collaborative academic work, not a production service.
+- The repository uses a fresh public history and does not contain the retired university database password.
+- No application component connects to Indiana University infrastructure.
+- The included records are demonstration data and should not be replaced with real personal information.
+- Contributor attribution should remain intact.
 
 ## License
 
 Reuse and modification are permitted for educational purposes. Commercial use requires permission; see [LICENSE](LICENSE).
-
